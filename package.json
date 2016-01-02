@@ -1,0 +1,23 @@
+{
+  "name": "synapse",
+  "version": "1.0.0",
+  "description": "Synapse is for quickly connecting ideas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freddieiboy/synapse.git"
+  },
+  "author": "Freddie Iboy <freddieiboy@gmail.com> (http://www.simplycolor.in/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freddieiboy/synapse/issues"
+  },
+  "homepage": "https://github.com/freddieiboy/synapse#readme",
+  "dependencies": {
+    "express": "4.13.3"
+  }
+}
