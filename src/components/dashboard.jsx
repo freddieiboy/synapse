@@ -10,7 +10,7 @@ class Dashboard extends Component {
     this.state = {
       totalNotes: 0,
       notesList: [],
-      noteSize: 200,
+      noteSize: 100,
       note: {},
       grid: {}
     }
@@ -20,8 +20,8 @@ class Dashboard extends Component {
   }
   inititalizeGrid = () => {
     const noteSize = this.state.noteSize;
-    const width = $(window).width() * 2;
-    const height = $(window).height() * 2;
+    const width = $(window).width();
+    const height = $(window).height();
 
     const createGrid = (noteSize, width, height) => {
       const xpos = getCoordinates(noteSize, width/noteSize);

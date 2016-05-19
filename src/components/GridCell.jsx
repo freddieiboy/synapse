@@ -8,8 +8,8 @@ const GridCell = ({xpos, ypos}) => {
       top: ypos ? ypos : '',
       left: xpos ? xpos : '',
       opacity: '.03',
-      width: ypos ? '200%' : '',
-      height: xpos ? '200%' : '',
+      width: ypos ? '100%' : '',
+      height: xpos ? '100%' : '',
       border: '1px solid white'
     }
   }
