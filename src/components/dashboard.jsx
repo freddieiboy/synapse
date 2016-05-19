@@ -79,7 +79,6 @@ class Dashboard extends Component {
   render() {
     const styles = {
       Dashboard: {
-        // backgroundColor: c.$bg,
         height: '100%',
       },
       infoFooter: {
@@ -109,11 +108,17 @@ class Dashboard extends Component {
     const yGridLines = ypos.map((ypos, key) => {
       return <GridCell ypos={ypos} key={key}/>
     })
+
+    // const random = () => {
+    //   return Math.floor((Math.random() * 10) + 1);
+    // }
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
           {xGridLines}
           {yGridLines}
+          <Note xpos={xpos[8]} ypos={ypos[4]} />
+          {/*<Note xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
 
-const Note = ({xpos}) => {
+const Note = ({xpos, ypos}) => {
   const styles = {
     Note: {
       backgroundColor: c.$note,
-      height: '50px',
-      width: '50px',
+      height: '100px',
+      width: '100px',
       border: '.1em solid' + c.$bg,
       position: 'absolute',
-      left: xpos
+      top: ypos ? ypos : '',
+      left: xpos ? xpos : '',
     }
   }
   // console.log(xpos);
