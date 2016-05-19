@@ -6,7 +6,7 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/build', 
+    path: __dirname + '/build',
     publicPath: 'http://localhost:8080/build/'
   },
 
@@ -19,7 +19,10 @@ module.exports = {
         query: {
           presets: ['es2015', 'react', 'stage-0']
         }
-      }
+      }, {
+         test: /\.scss$/,
+         loader: 'style-loader!css-loader!sass-loader'
+       }
     ]
   }
 };
