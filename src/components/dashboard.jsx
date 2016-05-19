@@ -10,6 +10,7 @@ class Dashboard extends Component {
     this.state = {
       totalNotes: 0,
       notesList: [],
+      noteSize: 200,
       note: {},
       grid: {}
     }
@@ -18,9 +19,9 @@ class Dashboard extends Component {
     this.inititalizeGrid();
   }
   inititalizeGrid = () => {
-    const noteSize = 50;
-    const width = $(window).width();
-    const height = $(window).height();
+    const noteSize = this.state.noteSize;
+    const width = $(window).width() * 2;
+    const height = $(window).height() * 2;
 
     const createGrid = (noteSize, width, height) => {
       const xpos = getCoordinates(noteSize, width/noteSize);
@@ -78,7 +79,7 @@ class Dashboard extends Component {
   render() {
     const styles = {
       Dashboard: {
-        backgroundColor: c.$bg,
+        // backgroundColor: c.$bg,
         height: '100%',
       },
       infoFooter: {
