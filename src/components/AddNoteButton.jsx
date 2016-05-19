@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const AddNoteButton = () => {
-  const styles = {
-    AddNoteButton: {
-      backgroundColor: 'white',
-      height: '4em',
-      width: '4em'
-      borderRadius: '50%',
-      opacity: '.4',
-      textAlign: 'center',
-      fontSize: '2em'
-    }
-  }
+class AddNoteButton extends Component {
+
   render() {
+    const styles = {
+      AddNoteButton: {
+        backgroundColor: 'white',
+        height: '2em',
+        width: '2em',
+        borderRadius: '50%',
+        opacity: '.4',
+        textAlign: 'center',
+      },
+      plus: {
+        fontSize: '1.7em',
+      }
+    }
     return (
-      <div className="AddNoteButton" style={styles.AddNoteButton}>+</div>
+      <div className="AddNoteButton" style={styles.AddNoteButton}>
+        <div className="plus" style={styles.plus}>+</div>
+      </div>
     )
   }
 }
