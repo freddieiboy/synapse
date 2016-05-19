@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
 
-const Note = () => {
+const Note = ({xpos}) => {
   const styles = {
     Note: {
       backgroundColor: c.$note,
-      height: '5em',
-      width: '5em',
-      border: '.1em solid' + c.$bg
+      height: '50px',
+      width: '50px',
+      border: '.1em solid' + c.$bg,
+      position: 'absolute',
+      left: xpos
     }
   }
+  // console.log(xpos);
   return (
     <div className="Note" style={styles.Note}></div>
   )

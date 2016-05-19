@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
 import Note from './Note.jsx';
+import GridCell from './GridCell.jsx';
+import $ from 'jquery';
 
 class Dashboard extends Component {
   constructor() {
@@ -8,8 +10,35 @@ class Dashboard extends Component {
     this.state = {
       totalNotes: 0,
       notesList: [],
-      note: {}
+      note: {},
+      grid: {}
     }
+  }
+  componentDidMount = () => {
+    this.inititalizeGrid();
+  }
+  inititalizeGrid = () => {
+    const noteSize = 50;
+    const width = $(window).width();
+    const height = $(window).height();
+
+    const createGrid = (noteSize, width, height) => {
+      const xpos = getCoordinates(noteSize, width/noteSize);
+      const ypos = getCoordinates(noteSize, height/noteSize);
+      const grid = {xpos, ypos};
+      return grid;
+    }
+
+    const getCoordinates = (noteSize, amount) => {
+      let coordinates = [];
+      for(let n = 0; n < amount; n++) {
+        var coor = coordinates.push(noteSize *  n);
+      }
+      return coordinates;
+    }
+
+    const grid = new createGrid(noteSize, width, height);
+    this.setState({grid: grid})
   }
   addNote = () => {
     const notesList = this.state.notesList;
@@ -57,14 +86,33 @@ class Dashboard extends Component {
         overflow: 'hidden'
       }
     }
-    const notes = this.state.notesList.map((key) => {
-      return <Note key={key.id}/>
+
+    let xpos;
+    let ypos;
+    const grid = this.state.grid;
+    const notesList = this.state.notesList;
+
+    if (grid.xpos !== undefined) {
+      xpos = grid.xpos;
+      ypos = grid.ypos;
+    } else {
+      xpos = [];
+      ypos = [];
+    }
+
+    console.log(grid)
+
+    const xGridLines = xpos.map((xpos, key) => {
+      return <GridCell xpos={xpos} key={key}/>
     })
-    console.log(this.state.notesList)
+    const yGridLines = ypos.map((ypos, key) => {
+      return <GridCell ypos={ypos} key={key}/>
+    })
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
-          {notes}
+          {xGridLines}
+          {yGridLines}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">
