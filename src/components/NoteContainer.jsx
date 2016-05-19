@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
 
-const Note = ({xpos, ypos}) => {
+const NoteContainer = ({xpos, ypos}) => {
   const styles = {
+    NoteContainer: {
+
+    },
     Note: {
       backgroundColor: c.$note,
       height: '100px',
@@ -15,8 +18,10 @@ const Note = ({xpos, ypos}) => {
   }
   // console.log(xpos);
   return (
-    <div className="Note" style={styles.Note}></div>
+    <div className="NoteContainer">
+      <div className="Note" style={styles.Note}></div>
+    </div>
   )
 };
 
-export default Note;
+export default NoteContainer;

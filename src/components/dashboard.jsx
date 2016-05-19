@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
-import Note from './Note.jsx';
+import NoteContainer from './NoteContainer.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
 
@@ -117,7 +117,7 @@ class Dashboard extends Component {
         <div className="g-cell g-cell-1">
           {xGridLines}
           {yGridLines}
-          <Note xpos={xpos[8]} ypos={ypos[4]} />
+          <NoteContainer xpos={xpos[4]} ypos={ypos[3]} />
           {/*<Note xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
