@@ -4,8 +4,9 @@
   "description": "Connecting ideas.",
   "main": "main.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron main.js",
-    "build": "./node_modules/.bin/webpack"
+    "start": "ENVIRONMENT=DEV ./node_modules/.bin/electron .",
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack-dev-server --hot --inline"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,6 @@
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "webpack": "1.13.0",
-    "webpack-dev-server": "1.14.1"
+    "webpack-dev-server": "1.14.0"
   }
 }
