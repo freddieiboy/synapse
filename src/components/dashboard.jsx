@@ -110,15 +110,15 @@ class Dashboard extends Component {
     })
 
     // const random = () => {
-    //   return Math.floor((Math.random() * 10) + 1);
+    //   return Math.floor((Math.random() * 4) + 1);
     // }
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
           {xGridLines}
           {yGridLines}
-          <NoteContainer xpos={xpos[4]} ypos={ypos[3]} />
-          {/*<Note xpos={xpos[random()]} ypos={ypos[random()]} />*/}
+          <NoteContainer noteSize={this.state.noteSize} xpos={xpos[2]} ypos={ypos[2]} />
+          {/*<NoteContainer xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">

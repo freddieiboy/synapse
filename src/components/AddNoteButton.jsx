@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 
 class AddNoteButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
 
+    }
+  }
   render() {
     const styles = {
       AddNoteButton: {
         backgroundColor: 'white',
-        height: '2em',
-        width: '2em',
+        height: this.props.noteSize/3,
+        width: this.props.noteSize/3,
         borderRadius: '50%',
-        opacity: '.4',
+        opacity: '.1',
         textAlign: 'center',
       },
       plus: {
