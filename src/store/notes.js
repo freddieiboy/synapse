@@ -13,9 +13,17 @@ export const addNewNote = (note) => {
   }
 }
 
+export const setGridMap = (gridMap) =>{
+  return {
+    type: 'SET_GRID_MAP',
+    gridMap
+  }
+}
+
 //INIT STATE
 const initialState = {
   grid: {},
+  gridMap: [],
   notesList: [],
   totalNotes: 0,
   noteSize: 100
@@ -42,6 +50,11 @@ const notes = (state = initialState, action) => {
           EditedAt: 'xxx',
           id: state.totalNotes + 1
         }]
+      }
+    case 'SET_GRID_MAP':
+      return {
+        ...state,
+        gridMap: action.gridMap
       }
     default:
       return state

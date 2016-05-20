@@ -43,8 +43,7 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
     ypos: ypos
   }
 
-  const position = [
-    {
+  const position = [{
       name: 'top',
       style: styles.top
     }, {
@@ -56,8 +55,7 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
     }, {
       name: 'left',
       style: styles.left
-    }
-  ]
+    }]
 
   const addButton = position.map((position) => {
     return (

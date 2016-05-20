@@ -4,7 +4,7 @@ import NoteContainer from './NoteContainer.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { addNewNote, initializeGrid } from '../store/notes.js';
+import { addNewNote, initializeGrid, setGridMap } from '../store/notes.js';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,24 +21,29 @@ class Dashboard extends Component {
     const noteSize = this.props.noteSize;
     const width = $(window).width();
     const height = $(window).height();
+    const m = new Map();
 
     const createGrid = (noteSize, width, height) => {
-      const xpos = getCoordinates(noteSize, width/noteSize);
-      const ypos = getCoordinates(noteSize, height/noteSize);
+      const xpos = getCoordinates(noteSize, width/noteSize, 'x');
+      const ypos = getCoordinates(noteSize, height/noteSize, 'y');
       const grid = {xpos, ypos};
       return grid;
     }
 
-    const getCoordinates = (noteSize, amount) => {
+    const getCoordinates = (noteSize, amount, type) => {
+
       let coordinates = [];
+      let counter = 0;
       for(let n = 0; n < amount; n++) {
         var coor = coordinates.push(noteSize *  n);
+        m.set(type + counter++, noteSize * n)
       }
       return coordinates;
     }
 
     const grid = new createGrid(noteSize, width, height);
     this.props.initializeGrid(grid)
+    this.props.setGridMap(m)
   }
   addNote = () => {
     const createdAt = new Date();
@@ -121,6 +126,23 @@ class Dashboard extends Component {
         totalNotes={this.props.totalNotes}
         />
     })
+
+    // let points = []
+
+    // const allPossiblePoints = xpos.map((xpos, key) => {
+    //   // console.log(key)
+    //   const positionLabel = 'x' + key
+    //   const mappedPoints = points.concat(positionLabel, xpos);
+    //   points = mappedPoints;
+    // })
+    console.log('grid:', grid)
+
+    for (let [key, value] of this.props.gridMap) {
+      console.log(`${key}: ${value}`)
+    }
+
+    console.log(...this.props.gridMap)
+
     // console.log('notesList', this.props.notesList)
     // console.log('totalNotes', this.props.totalNotes)
     // console.log('grid', this.props.grid)
@@ -158,7 +180,8 @@ const mapStateToProps = (state) => {
     notesList: state.notesList,
     totalNotes: state.totalNotes,
     noteSize: state.noteSize,
-    grid: state.grid
+    grid: state.grid,
+    gridMap: state.gridMap
   }
 }
 
@@ -169,6 +192,9 @@ const MapDispatchToProps = (dispatch) => {
     },
     addNewNote: (note) => {
       dispatch(addNewNote(note))
+    },
+    setGridMap: (gridMap) => {
+      dispatch(setGridMap(gridMap))
     }
   }
 }

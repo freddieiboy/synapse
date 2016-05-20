@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ifStyle } from './utils.js';
 
 class AddNoteButton extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class AddNoteButton extends Component {
     const createdAt = new Date();
     let newXPos;
     let newYPos;
+
     if(this.props.type === 'top') {
       newYPos = this.props.parentNote.ypos - this.props.noteSize
       newXPos = this.props.parentNote.xpos
@@ -27,13 +29,13 @@ class AddNoteButton extends Component {
       newXPos = this.props.parentNote.xpos - this.props.noteSize
       newYPos = this.props.parentNote.ypos
     }
-    // console.log(this.props.parentNote)
-    // console.log(newYPos, newXPos)
-    const note =  {
+
+    const note = {
       xpos: newXPos,
       ypos: newYPos,
       createdAt: createdAt.getTime(),
     }
+
     this.pressButton();
     return this.props.addNewNote(note)
   }
@@ -55,12 +57,16 @@ class AddNoteButton extends Component {
       },
       press: {
         opacity: '.2'
+      },
+      hide: {
+        display: 'none'
       }
     }
     return (
-      <div className="AddNoteButton" onMouseDown={this.pressButton} onMouseUp={this.addButton} style={
-          this.state.isPressed ? Object.assign({}, styles.AddNoteButton, styles.press) : styles.AddNoteButton
-        }>
+      <div className="AddNoteButton" onMouseDown={this.pressButton} onMouseUp={this.addButton} style={ifStyle(
+          styles.AddNoteButton,
+          this.state.isPressed && styles.press
+        )}>
         <div className="plus" style={styles.plus}>+</div>
       </div>
     )
