@@ -39,19 +39,47 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
     }
   }
   // console.log(xpos);
+  const parentNote = {
+    xpos: xpos,
+    ypos: ypos
+  }
   return (
     <div className="NoteContainer" style={styles.NoteContainer}>
       <div className="top" style={styles.top}>
-        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
+        <AddNoteButton
+          noteSize={noteSize}
+          addNewNote={addNewNote}
+          totalNotes={totalNotes}
+          type={"top"}
+          parentNote={parentNote}
+          />
       </div>
       <div className="bottom" style={styles.bottom}>
-        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
+        <AddNoteButton
+          noteSize={noteSize}
+          addNewNote={addNewNote}
+          totalNotes={totalNotes}
+          type={"bottom"}
+          parentNote={parentNote}
+          />
       </div>
       <div className="right" style={styles.right}>
-        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
+        <AddNoteButton
+          noteSize={noteSize}
+          addNewNote={addNewNote}
+          totalNotes={totalNotes}
+          type={"right"}
+          parentNote={parentNote}
+          />
       </div>
       <div className="left" style={styles.left}>
-        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
+        <AddNoteButton
+          noteSize={noteSize}
+          addNewNote={addNewNote}
+          totalNotes={totalNotes}
+          type={"left"}
+          parentNote={parentNote}
+          />
       </div>
     </div>
   )

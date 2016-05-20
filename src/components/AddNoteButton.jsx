@@ -9,9 +9,29 @@ class AddNoteButton extends Component {
   // }
   addButton = () => {
     const createdAt = new Date();
+    let newXPos;
+    let newYPos;
+    if(this.props.type === 'top') {
+      newYPos = this.props.parentNote.ypos - this.props.noteSize
+      newXPos = this.props.parentNote.xpos
+    }
+    if(this.props.type === 'bottom') {
+      newYPos = this.props.parentNote.ypos + this.props.noteSize
+      newXPos = this.props.parentNote.xpos
+    }
+    if(this.props.type === 'right') {
+      newXPos = this.props.parentNote.xpos + this.props.noteSize
+      newYPos = this.props.parentNote.ypos
+    }
+    if(this.props.type === 'left') {
+      newXPos = this.props.parentNote.xpos - this.props.noteSize
+      newYPos = this.props.parentNote.ypos
+    }
+    console.log(this.props.parentNote)
+    console.log(newYPos, newXPos)
     const note =  {
-      xpos: 400,
-      ypos: 600,
+      xpos: newXPos,
+      ypos: newYPos,
       createdAt: createdAt.getTime(),
     }
     return this.props.addNewNote(note)
