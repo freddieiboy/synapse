@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as c from './colors.js';
 import AddNoteButton from './AddNoteButton.jsx';
 
-const NoteContainer = ({xpos, ypos, noteSize}) => {
+const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
   const styles = {
     NoteContainer: {
       backgroundColor: c.$note,
@@ -12,7 +12,6 @@ const NoteContainer = ({xpos, ypos, noteSize}) => {
       position: 'absolute',
       top: ypos ? ypos : '',
       left: xpos ? xpos : '',
-      position: 'relative'
     },
     top: {
       position: 'absolute',
@@ -43,16 +42,16 @@ const NoteContainer = ({xpos, ypos, noteSize}) => {
   return (
     <div className="NoteContainer" style={styles.NoteContainer}>
       <div className="top" style={styles.top}>
-        <AddNoteButton noteSize={noteSize} />
+        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
       </div>
       <div className="bottom" style={styles.bottom}>
-        <AddNoteButton noteSize={noteSize} />
+        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
       </div>
       <div className="right" style={styles.right}>
-        <AddNoteButton noteSize={noteSize} />
+        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
       </div>
       <div className="left" style={styles.left}>
-        <AddNoteButton noteSize={noteSize} />
+        <AddNoteButton noteSize={noteSize} addNewNote={addNewNote} totalNotes={totalNotes}/>
       </div>
     </div>
   )

@@ -4,24 +4,19 @@ import NoteContainer from './NoteContainer.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { addNewNote, incrementTotalNotes } from '../store/notes.js';
+import { addNewNote, initializeGrid } from '../store/notes.js';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // totalNotes: 0,
-      notesList: [],
-      noteSize: 100,
-      note: {},
-      grid: {}
-    }
   }
   componentDidMount = () => {
     this.inititalizeGrid();
+    // this.addNote();
+    //NOTE: this starts once
   }
   inititalizeGrid = () => {
-    const noteSize = this.state.noteSize;
+    const noteSize = this.props.noteSize;
     const width = $(window).width();
     const height = $(window).height();
 
@@ -41,15 +36,15 @@ class Dashboard extends Component {
     }
 
     const grid = new createGrid(noteSize, width, height);
-    this.setState({grid: grid})
+    // this.setState({grid: grid})
+    this.props.initializeGrid(grid)
   }
   addNote = () => {
-    const notesList = this.state.notesList;
     const createdAt = new Date();
     let totalNotes = this.props.totalNotes
     const note =  {
-      xpos: 300,
-      ypos: 500,
+      xpos: 0,
+      ypos: 0,
       text: '',
       createdAt: createdAt.getTime(),
       EditedAt: 'xxx',
@@ -59,18 +54,19 @@ class Dashboard extends Component {
     this.props.addNewNote(note)
   }
   subNote = () => {
-    const notesList = this.state.notesList;
-    const totalNotes = this.state.totalNotes;
-    let decrementTotalNotes = totalNotes;
-    decrementTotalNotes--
-
-    if (this.state.totalNotes > 0) {
-      const newNotesList = notesList.slice(0, decrementTotalNotes);
-      this.setState({
-        totalNotes: decrementTotalNotes,
-        notesList: newNotesList
-      })
-    }
+    //TODO: implement after adding works
+    // const notesList = this.state.notesList;
+    // const totalNotes = this.state.totalNotes;
+    // let decrementTotalNotes = totalNotes;
+    // decrementTotalNotes--
+    //
+    // if (this.state.totalNotes > 0) {
+    //   const newNotesList = notesList.slice(0, decrementTotalNotes);
+    //   this.setState({
+    //     totalNotes: decrementTotalNotes,
+    //     notesList: newNotesList
+    //   })
+    // }
   }
   render() {
     const styles = {
@@ -85,14 +81,21 @@ class Dashboard extends Component {
 
     let xpos;
     let ypos;
-    const grid = this.state.grid;
+    let xposCenter;
+    let yposCenter;
+    const grid = this.props.grid;
 
     if (grid.xpos !== undefined) {
       xpos = grid.xpos;
       ypos = grid.ypos;
+      xposCenter = Math.floor(grid.xpos.length/2 - 1)
+      yposCenter = Math.floor(grid.ypos.length/2 - 1)
+      console.log(xpos, ypos)
     } else {
       xpos = [];
       ypos = [];
+      xposCenter = 0;
+      yposCenter = 0;
     }
 
     const xGridLines = xpos.map((xpos, key) => {
@@ -109,21 +112,32 @@ class Dashboard extends Component {
     const note = this.props.notesList.map((note) => {
       return <NoteContainer
         key={note.id}
-        noteSize={this.state.noteSize}
+        noteSize={this.props.noteSize}
         xpos={note.xpos}
         ypos={note.ypos}
+        addNewNote={this.props.addNewNote}
+        totalNotes={this.props.totalNotes}
         />
     })
     console.log('notesList', this.props.notesList)
     console.log('totalNotes', this.props.totalNotes)
+    console.log('grid', this.props.grid)
     // console.log('totalNotes', this.props.addNewNote)
     // console.log('totalNotes', this.props.incrementTotalNotes)
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
+          <NoteContainer
+            key={note.id}
+            noteSize={this.props.noteSize}
+            xpos={xpos[xposCenter]}
+            ypos={ypos[yposCenter]}
+            addNewNote={this.props.addNewNote}
+            totalNotes={this.props.totalNotes}
+            />
+          {note}
           {xGridLines}
           {yGridLines}
-          {note}
           {/*<NoteContainer noteSize={this.state.noteSize} xpos={xpos[2]} ypos={ypos[2]} />*/}
           {/*<NoteContainer xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
@@ -142,12 +156,17 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     notesList: state.notesList,
-    totalNotes: state.totalNotes
+    totalNotes: state.totalNotes,
+    noteSize: state.noteSize,
+    grid: state.grid
   }
 }
 
 const MapDispatchToProps = (dispatch) => {
   return {
+    initializeGrid: (grid) => {
+      dispatch(initializeGrid(grid))
+    },
     addNewNote: (note) => {
       dispatch(addNewNote(note))
     }

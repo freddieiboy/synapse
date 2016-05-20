@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 
 class AddNoteButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //
+  //   }
+  // }
+  addButton = () => {
+    const createdAt = new Date();
+    const note =  {
+      xpos: 400,
+      ypos: 600,
+      createdAt: createdAt.getTime(),
     }
+    return this.props.addNewNote(note)
   }
   render() {
     const styles = {
@@ -22,7 +31,7 @@ class AddNoteButton extends Component {
       }
     }
     return (
-      <div className="AddNoteButton" style={styles.AddNoteButton}>
+      <div className="AddNoteButton" onClick={this.addButton} style={styles.AddNoteButton}>
         <div className="plus" style={styles.plus}>+</div>
       </div>
     )
