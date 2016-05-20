@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ENVIRONMENT=DEV ./node_modules/.bin/electron .",
     "build": "./node_modules/.bin/webpack",
+    "remotedev": "remotedev --hostname=localhost --port=8000",
     "watch": "./node_modules/.bin/webpack-dev-server --hot --inline",
     "osx-package": "./node_modules/.bin/webpack -p && ./node_modules/electron-packager/cli.js ./ Synapse --out ./bin --platform=darwin --arch=x64 --version=0.34.0 --overwrite --ignore=\"ignore|bin|node_modules\""
   },
@@ -27,6 +28,8 @@
     "node-sass": "3.7.0",
     "react": "15.0.2",
     "react-dom": "15.0.2",
+    "remote-redux-devtools": "0.3.3-alpha2",
+    "remotedev-server": "0.1.1",
     "sass-loader": "3.2.0",
     "style-loader": "0.13.1",
     "webpack": "1.13.0",

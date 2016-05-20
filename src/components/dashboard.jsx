@@ -3,12 +3,14 @@ import * as c from './colors.js';
 import NoteContainer from './NoteContainer.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
+import { connect } from 'react-redux'
+import { addNewNote, incrementTotalNotes } from '../store/notes.js';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      totalNotes: 0,
+      // totalNotes: 0,
       notesList: [],
       noteSize: 100,
       note: {},
@@ -44,23 +46,17 @@ class Dashboard extends Component {
   addNote = () => {
     const notesList = this.state.notesList;
     const createdAt = new Date();
-    let totalNotes = this.state.totalNotes
-    totalNotes++
+    let totalNotes = this.props.totalNotes
     const note =  {
-      positionX: 'x',
-      positionY: 'y',
+      xpos: 300,
+      ypos: 500,
       text: '',
       createdAt: createdAt.getTime(),
       EditedAt: 'xxx',
       id: totalNotes
     }
 
-    if (this.state.totalNotes >= 0) {
-      this.setState({
-        totalNotes: totalNotes,
-        notesList: notesList.concat(note)
-      })
-    }
+    this.props.addNewNote(note)
   }
   subNote = () => {
     const notesList = this.state.notesList;
@@ -90,7 +86,6 @@ class Dashboard extends Component {
     let xpos;
     let ypos;
     const grid = this.state.grid;
-    const notesList = this.state.notesList;
 
     if (grid.xpos !== undefined) {
       xpos = grid.xpos;
@@ -100,8 +95,6 @@ class Dashboard extends Component {
       ypos = [];
     }
 
-    console.log(grid)
-
     const xGridLines = xpos.map((xpos, key) => {
       return <GridCell xpos={xpos} key={key}/>
     })
@@ -109,22 +102,36 @@ class Dashboard extends Component {
       return <GridCell ypos={ypos} key={key}/>
     })
 
-    // const random = () => {
-    //   return Math.floor((Math.random() * 4) + 1);
-    // }
+    const random = () => {
+      return Math.floor((Math.random() * 4) + 1);
+    }
+
+    const note = this.props.notesList.map((note) => {
+      return <NoteContainer
+        key={note.id}
+        noteSize={this.state.noteSize}
+        xpos={note.xpos}
+        ypos={note.ypos}
+        />
+    })
+    console.log('notesList', this.props.notesList)
+    console.log('totalNotes', this.props.totalNotes)
+    // console.log('totalNotes', this.props.addNewNote)
+    // console.log('totalNotes', this.props.incrementTotalNotes)
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
           {xGridLines}
           {yGridLines}
-          <NoteContainer noteSize={this.state.noteSize} xpos={xpos[2]} ypos={ypos[2]} />
+          {note}
+          {/*<NoteContainer noteSize={this.state.noteSize} xpos={xpos[2]} ypos={ypos[2]} />*/}
           {/*<NoteContainer xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">
             <button onClick={this.addNote}>Add Note</button>
             <button onClick={this.subNote}>Sub Note</button>
-            <p style={{margin: '0 1em', color: 'white'}}>Total Notes are: {this.state.totalNotes}</p>
+            <p style={{margin: '0 1em', color: 'white'}}>Total Notes are: {this.props.totalNotes}</p>
           </div>
         </div>
       </div>
@@ -132,4 +139,19 @@ class Dashboard extends Component {
   }
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    notesList: state.notesList,
+    totalNotes: state.totalNotes
+  }
+}
+
+const MapDispatchToProps = (dispatch) => {
+  return {
+    addNewNote: (note) => {
+      dispatch(addNewNote(note))
+    }
+  }
+}
+
+export default connect(mapStateToProps, MapDispatchToProps)(Dashboard);

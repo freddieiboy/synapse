@@ -5,12 +5,10 @@ import AddNoteButton from './AddNoteButton.jsx';
 const NoteContainer = ({xpos, ypos, noteSize}) => {
   const styles = {
     NoteContainer: {
-    },
-    Note: {
       backgroundColor: c.$note,
       height: noteSize,
       width: noteSize,
-      border: '.1em solid' + c.$bg,
+      // border: '.1em solid' + c.$bg,
       position: 'absolute',
       top: ypos ? ypos : '',
       left: xpos ? xpos : '',
@@ -44,19 +42,17 @@ const NoteContainer = ({xpos, ypos, noteSize}) => {
   // console.log(xpos);
   return (
     <div className="NoteContainer" style={styles.NoteContainer}>
-      <div className="Note" style={styles.Note}>
-        <div className="top" style={styles.top}>
-          <AddNoteButton noteSize={noteSize} />
-        </div>
-        <div className="bottom" style={styles.bottom}>
-          <AddNoteButton noteSize={noteSize} />
-        </div>
-        <div className="right" style={styles.right}>
-          <AddNoteButton noteSize={noteSize} />
-        </div>
-        <div className="left" style={styles.left}>
-          <AddNoteButton noteSize={noteSize} />
-        </div>
+      <div className="top" style={styles.top}>
+        <AddNoteButton noteSize={noteSize} />
+      </div>
+      <div className="bottom" style={styles.bottom}>
+        <AddNoteButton noteSize={noteSize} />
+      </div>
+      <div className="right" style={styles.right}>
+        <AddNoteButton noteSize={noteSize} />
+      </div>
+      <div className="left" style={styles.left}>
+        <AddNoteButton noteSize={noteSize} />
       </div>
     </div>
   )
