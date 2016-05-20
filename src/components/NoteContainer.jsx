@@ -8,7 +8,6 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
       backgroundColor: c.$note,
       height: noteSize,
       width: noteSize,
-      // border: '.1em solid' + c.$bg,
       position: 'absolute',
       top: ypos ? ypos : '',
       left: xpos ? xpos : '',
@@ -38,49 +37,45 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
       transform: 'translate(-50%, -50%)'
     }
   }
-  // console.log(xpos);
+
   const parentNote = {
     xpos: xpos,
     ypos: ypos
   }
+
+  const position = [
+    {
+      name: 'top',
+      style: styles.top
+    }, {
+      name: 'bottom',
+      style: styles.bottom
+    }, {
+      name: 'right',
+      style: styles.right
+    }, {
+      name: 'left',
+      style: styles.left
+    }
+  ]
+
+  const addButton = position.map((position) => {
+    return (
+      <div className={position.name} key={position.name} style={position.style}>
+        <AddNoteButton
+          key={position.name}
+          noteSize={noteSize}
+          addNewNote={addNewNote}
+          totalNotes={totalNotes}
+          type={position.name}
+          parentNote={parentNote}
+          />
+      </div>
+    )
+  })
   return (
     <div className="NoteContainer" style={styles.NoteContainer}>
-      <div className="top" style={styles.top}>
-        <AddNoteButton
-          noteSize={noteSize}
-          addNewNote={addNewNote}
-          totalNotes={totalNotes}
-          type={"top"}
-          parentNote={parentNote}
-          />
-      </div>
-      <div className="bottom" style={styles.bottom}>
-        <AddNoteButton
-          noteSize={noteSize}
-          addNewNote={addNewNote}
-          totalNotes={totalNotes}
-          type={"bottom"}
-          parentNote={parentNote}
-          />
-      </div>
-      <div className="right" style={styles.right}>
-        <AddNoteButton
-          noteSize={noteSize}
-          addNewNote={addNewNote}
-          totalNotes={totalNotes}
-          type={"right"}
-          parentNote={parentNote}
-          />
-      </div>
-      <div className="left" style={styles.left}>
-        <AddNoteButton
-          noteSize={noteSize}
-          addNewNote={addNewNote}
-          totalNotes={totalNotes}
-          type={"left"}
-          parentNote={parentNote}
-          />
-      </div>
+      {addButton}
     </div>
   )
 };

@@ -9,11 +9,13 @@ import { addNewNote, initializeGrid } from '../store/notes.js';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.inititalizeGrid();
   }
   componentDidMount = () => {
-    this.inititalizeGrid();
-    // this.addNote();
-    //NOTE: this starts once
+    // this.inititalizeGrid();
+  }
+  componentWillUpdate() {
+    console.log('dashboard is updating')
   }
   inititalizeGrid = () => {
     const noteSize = this.props.noteSize;
@@ -36,7 +38,6 @@ class Dashboard extends Component {
     }
 
     const grid = new createGrid(noteSize, width, height);
-    // this.setState({grid: grid})
     this.props.initializeGrid(grid)
   }
   addNote = () => {
@@ -54,7 +55,8 @@ class Dashboard extends Component {
     this.props.addNewNote(note)
   }
   subNote = () => {
-    //TODO: implement after adding works
+    //TODO: implement after adding is more polished
+
     // const notesList = this.state.notesList;
     // const totalNotes = this.state.totalNotes;
     // let decrementTotalNotes = totalNotes;
@@ -90,7 +92,7 @@ class Dashboard extends Component {
       ypos = grid.ypos;
       xposCenter = Math.floor(grid.xpos.length/2 - 1)
       yposCenter = Math.floor(grid.ypos.length/2 - 1)
-      console.log(xpos, ypos)
+      // console.log(xpos, ypos)
     } else {
       xpos = [];
       ypos = [];
@@ -119,9 +121,9 @@ class Dashboard extends Component {
         totalNotes={this.props.totalNotes}
         />
     })
-    console.log('notesList', this.props.notesList)
-    console.log('totalNotes', this.props.totalNotes)
-    console.log('grid', this.props.grid)
+    // console.log('notesList', this.props.notesList)
+    // console.log('totalNotes', this.props.totalNotes)
+    // console.log('grid', this.props.grid)
     // console.log('totalNotes', this.props.addNewNote)
     // console.log('totalNotes', this.props.incrementTotalNotes)
     return (
@@ -138,8 +140,6 @@ class Dashboard extends Component {
           {note}
           {xGridLines}
           {yGridLines}
-          {/*<NoteContainer noteSize={this.state.noteSize} xpos={xpos[2]} ypos={ypos[2]} />*/}
-          {/*<NoteContainer xpos={xpos[random()]} ypos={ypos[random()]} />*/}
         </div>
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">
