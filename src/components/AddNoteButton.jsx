@@ -44,6 +44,14 @@ class AddNoteButton extends Component {
   }
   render() {
     const styles = {
+      ButtonContainer: {
+        backgroundColor: 'white',
+        height: noteSize,
+        width: noteSize,
+        position: 'absolute',
+        top: ypos ? ypos : '',
+        left: xpos ? xpos : '',
+      },
       AddNoteButton: {
         backgroundColor: 'white',
         height: this.props.noteSize/3,
@@ -63,11 +71,13 @@ class AddNoteButton extends Component {
       }
     }
     return (
-      <div className="AddNoteButton" onMouseDown={this.pressButton} onMouseUp={this.addButton} style={ifStyle(
-          styles.AddNoteButton,
-          this.state.isPressed && styles.press
-        )}>
-        <div className="plus" style={styles.plus}>+</div>
+      <div className="ButtonContainer" style={styles.ButtonContainer}>
+        <div className="AddNoteButton" onMouseDown={this.pressButton} onMouseUp={this.addButton} style={ifStyle(
+            styles.AddNoteButton,
+            this.state.isPressed && styles.press
+          )}>
+          <div className="plus" style={styles.plus}>+</div>
+        </div>
       </div>
     )
   }

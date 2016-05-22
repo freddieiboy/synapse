@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as c from './colors.js';
 import NoteContainer from './NoteContainer.jsx';
+import AddNoteButton from './AddNoteButton.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
 import { connect } from 'react-redux'
@@ -22,7 +23,6 @@ class Dashboard extends Component {
     const noteSize = this.props.noteSize;
     const width = $(window).width();
     const height = $(window).height();
-    // const m = new Map();
 
     const createGrid = (noteSize, width, height) => {
       const xpos = getCoordinates(noteSize, width/noteSize, 'x');
@@ -37,14 +37,12 @@ class Dashboard extends Component {
       let counter = 0;
       for(let n = 0; n < amount; n++) {
         var coor = coordinates.push(noteSize *  n);
-        // m.set(type + counter++, noteSize * n)
       }
       return coordinates;
     }
 
     const grid = new createGrid(noteSize, width, height);
     this.props.initializeGrid(grid)
-    // this.props.setGridMap(m)
   }
   addNote = () => {
     const createdAt = new Date();
@@ -64,13 +62,6 @@ class Dashboard extends Component {
     const initialGrid = this.props.grid;
     const totalPoints = initialGrid.xpos.length * initialGrid.ypos.length;
     let totalGridObjects = [];
-    // let fam = {'label': {
-    //   id: this.props.totalNotes,
-    //   xpos: 100,
-    //   ypos: 100,
-    //   button: true,
-    //   note: true
-    // }}
 
     //create totalGridObject
     for(let i = 0; i < totalPoints; i++) {
@@ -79,8 +70,8 @@ class Dashboard extends Component {
         id: i,
         xpos: 0,
         ypos: 0,
-        button: false,
-        note: true
+        button: true,
+        note: false
       }}]
     }
 
@@ -97,10 +88,10 @@ class Dashboard extends Component {
       xpos++
     }
 
-    console.log('totalPoints', totalPoints)
-    console.log('totalGridObjects', totalGridObjects)
-    console.log('singleGridObject', totalGridObjects[30])
-    console.log('originalGrid:', initialGrid)
+    // console.log('totalPoints', totalPoints)
+    // console.log('totalGridObjects', totalGridObjects)
+    // console.log('singleGridObject', totalGridObjects[30])
+    // console.log('originalGrid:', initialGrid)
     this.props.setGridMap(totalGridObjects)
   }
   render() {
@@ -147,44 +138,11 @@ class Dashboard extends Component {
       return Math.floor((Math.random() * 4) + 1);
     }
 
-    // const note = this.props.notesList.map((note) => {
-    //   return <NoteContainer
-    //     key={note.id}
-    //     noteSize={this.props.noteSize}
-    //     xpos={note.xpos}
-    //     ypos={note.ypos}
-    //     addNewNote={this.props.addNewNote}
-    //     totalNotes={this.props.totalNotes}
-    //     />
-    // })
-
-    // let points = []
-
-    // const allPossiblePoints = xpos.map((xpos, key) => {
-    //   // console.log(key)
-    //   const positionLabel = 'x' + key
-    //   const mappedPoints = points.concat(positionLabel, xpos);
-    //   points = mappedPoints;
-    // })
-    {/*console.log('grid:', grid)
-
-    for (let [key, value] of this.props.gridMap) {
-      console.log(`${key}: ${value}`)
-    }*/}
-
-    // console.log(this.props.gridMap)
-    // console.log(loadedGrid)
-    // const newGrid = {}
-
     const square = (newGrid = this.props.gridMap) => {
       console.log('this is being mapped:', newGrid)
 
       return newGrid.map((family, key) => {
         const fam = flattenObject(family);
-        // console.log(fam)
-        // console.log(family, key)
-        // console.log(family.square.xpos)
-        console.log(fam, fam.note, fam.button, fam.id, fam.xpos, fam.ypos)
         if (fam.note) {
           console.log('note if called')
           return (
