@@ -144,7 +144,6 @@ class Dashboard extends Component {
       return newGrid.map((family, key) => {
         const fam = flattenObject(family);
         if (fam.note) {
-          console.log('note if called')
           return (
             <NoteContainer
               key={fam.id}
@@ -156,9 +155,13 @@ class Dashboard extends Component {
               />
           )
         } else if (fam.button) {
-          console.log('button if called')
           return (
-            <h1>no button</h1>
+            <AddNoteButton
+              key={fam.id}
+              noteSize={this.props.noteSize}
+              xpos={fam.xpos}
+              ypos={fam.ypos}
+              />
           )
         } else {
           console.log('else is called')

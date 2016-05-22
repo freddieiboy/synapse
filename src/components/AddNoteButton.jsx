@@ -43,19 +43,23 @@ class AddNoteButton extends Component {
   !this.state.isPressed ? this.setState({isPressed: true}) : this.setState({isPressed: false})
   }
   render() {
+    let {noteSize, ypos, xpos} = this.props;
     const styles = {
       ButtonContainer: {
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         height: noteSize,
         width: noteSize,
         position: 'absolute',
         top: ypos ? ypos : '',
         left: xpos ? xpos : '',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
       },
       AddNoteButton: {
         backgroundColor: 'white',
-        height: this.props.noteSize/3,
-        width: this.props.noteSize/3,
+        height: noteSize/3,
+        width: noteSize/3,
         borderRadius: '50%',
         opacity: '.05',
         textAlign: 'center',
