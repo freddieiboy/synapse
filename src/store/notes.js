@@ -54,6 +54,7 @@ const notes = (state = initialState, action) => {
     case 'SET_GRID_MAP':
       return {
         ...state,
+        totalNotes: state.totalNotes + 1,
         gridMap: action.gridMap
       }
     default:

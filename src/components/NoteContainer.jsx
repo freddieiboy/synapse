@@ -57,23 +57,23 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
       style: styles.left
     }]
 
-  const addButton = position.map((position) => {
-    return (
-      <div className={position.name} key={position.name} style={position.style}>
-        <AddNoteButton
-          key={position.name}
-          noteSize={noteSize}
-          addNewNote={addNewNote}
-          totalNotes={totalNotes}
-          type={position.name}
-          parentNote={parentNote}
-          />
-      </div>
-    )
-  })
+  // const addButton = position.map((position) => {
+  //   return (
+  //     <div className={position.name} key={position.name} style={position.style}>
+  //       <AddNoteButton
+  //         key={position.name}
+  //         noteSize={noteSize}
+  //         addNewNote={addNewNote}
+  //         totalNotes={totalNotes}
+  //         type={position.name}
+  //         parentNote={parentNote}
+  //         />
+  //     </div>
+  //   )
+  // })
   return (
     <div className="NoteContainer" style={styles.NoteContainer}>
-      {addButton}
+      {/*{addButton}*/}
     </div>
   )
 };
