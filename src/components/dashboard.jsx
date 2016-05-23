@@ -44,20 +44,20 @@ class Dashboard extends Component {
     const grid = new createGrid(noteSize, width, height);
     this.props.initializeGrid(grid)
   }
-  addNote = () => {
-    const createdAt = new Date();
-    let totalNotes = this.props.totalNotes
-    const note = {
-      xpos: 0,
-      ypos: 0,
-      text: '',
-      createdAt: createdAt.getTime(),
-      EditedAt: 'xxx',
-      id: totalNotes
-    }
-
-    this.props.addNewNote(note)
-  }
+  // addNote = () => {
+  //   const createdAt = new Date();
+  //   let totalNotes = this.props.totalNotes
+  //   const note = {
+  //     xpos: 0,
+  //     ypos: 0,
+  //     text: '',
+  //     createdAt: createdAt.getTime(),
+  //     EditedAt: 'xxx',
+  //     id: totalNotes
+  //   }
+  //
+  //   this.props.addNewNote(note)
+  // }
   createGridFams = () => {
     const initialGrid = this.props.grid;
     const totalPoints = initialGrid.xpos.length * initialGrid.ypos.length;
@@ -110,12 +110,14 @@ class Dashboard extends Component {
     let xposCenter;
     let yposCenter;
     let loadedGrid = [];
+    let totalPossiblePoints
     const grid = this.props.grid;
 
     if (grid.xpos !== undefined) {
       loadedGrid = this.props.grid;
       xpos = grid.xpos;
       ypos = grid.ypos;
+      totalPossiblePoints = xpos.length * ypos.length
       xposCenter = Math.floor(grid.xpos.length/2 - 1)
       yposCenter = Math.floor(grid.ypos.length/2 - 1)
       // console.log(xpos, ypos)
@@ -147,26 +149,23 @@ class Dashboard extends Component {
           return (
             <NoteContainer
               key={fam.id}
+              reference={fam.id}
               noteSize={this.props.noteSize}
               xpos={fam.xpos}
               ypos={fam.ypos}
-              addNewNote={this.props.addNewNote}
-              totalNotes={this.props.totalNotes}
               />
           )
         } else if (fam.button) {
           return (
             <AddNoteButton
               key={fam.id}
+              reference={fam.id}
               noteSize={this.props.noteSize}
               xpos={fam.xpos}
               ypos={fam.ypos}
+              addNewNote={this.props.addNewNote}
+              globalGrid={newGrid}
               />
-          )
-        } else {
-          console.log('else is called')
-          return (
-            <h1>no notes or button</h1>
           )
         }
       })
@@ -177,6 +176,7 @@ class Dashboard extends Component {
     // console.log('grid', this.props.grid)
     // console.log('totalNotes', this.props.addNewNote)
     // console.log('totalNotes', this.props.incrementTotalNotes)
+
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
@@ -195,7 +195,8 @@ class Dashboard extends Component {
         <div className="infoFooter g-cell g-cell-auto" style={styles.infoFooter}>
           <div className="grid g-main-end">
             <button onClick={this.createGridFams}>Create Fams</button>
-            <p style={{margin: '0 1em', color: 'white'}}>Total Notes are: {this.props.totalNotes}</p>
+            <p style={{margin: '0 1em', color: 'white'}}>Current Notes: {this.props.totalNotes}</p>
+            <p style={{margin: '0 1em', color: 'white'}}>Max Notes: {totalPossiblePoints}</p>
           </div>
         </div>
       </div>

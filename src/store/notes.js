@@ -6,10 +6,10 @@ export const initializeGrid = (grid) => {
   }
 }
 
-export const addNewNote = (note) => {
+export const addNewNote = (id) => {
   return {
     type: 'ADD_NEW_NOTE',
-    note
+    id
   }
 }
 
@@ -24,7 +24,7 @@ export const setGridMap = (gridMap) =>{
 const initialState = {
   grid: {},
   gridMap: [],
-  notesList: [],
+  notesList: [], //deprecated
   totalNotes: 0,
   noteSize: 100
 }
@@ -38,24 +38,17 @@ const notes = (state = initialState, action) => {
         ...state,
         grid: action.grid
       }
-    case 'ADD_NEW_NOTE':
-      return {
-        ...state,
-        totalNotes: state.totalNotes + 1,
-        notesList: [...state.notesList, {
-          xpos: action.note.xpos,
-          ypos: action.note.ypos,
-          text: '',
-          createdAt: action.note.createdAt,
-          EditedAt: 'xxx',
-          id: state.totalNotes + 1
-        }]
-      }
     case 'SET_GRID_MAP':
       return {
         ...state,
-        totalNotes: state.totalNotes + 1,
         gridMap: action.gridMap
+      }
+    case 'ADD_NEW_NOTE':
+      const squareId = state.gridMap[action.id].square;
+      return {
+        ...state,
+        totalNotes: state.totalNotes + 1,
+        gridMap: [...state.gridMap, squareId.button = false, squareId.note = true]
       }
     default:
       return state

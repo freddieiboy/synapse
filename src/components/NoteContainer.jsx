@@ -56,7 +56,7 @@ const NoteContainer = ({xpos, ypos, noteSize, addNewNote, totalNotes}) => {
       name: 'left',
       style: styles.left
     }]
-
+  // console.log('note fam reference:', this.props.reference)
   // const addButton = position.map((position) => {
   //   return (
   //     <div className={position.name} key={position.name} style={position.style}>

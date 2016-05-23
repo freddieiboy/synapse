@@ -9,35 +9,8 @@ class AddNoteButton extends Component {
     }
   }
   addButton = () => {
-    const createdAt = new Date();
-    let newXPos;
-    let newYPos;
-
-    if(this.props.type === 'top') {
-      newYPos = this.props.parentNote.ypos - this.props.noteSize
-      newXPos = this.props.parentNote.xpos
-    }
-    if(this.props.type === 'bottom') {
-      newYPos = this.props.parentNote.ypos + this.props.noteSize
-      newXPos = this.props.parentNote.xpos
-    }
-    if(this.props.type === 'right') {
-      newXPos = this.props.parentNote.xpos + this.props.noteSize
-      newYPos = this.props.parentNote.ypos
-    }
-    if(this.props.type === 'left') {
-      newXPos = this.props.parentNote.xpos - this.props.noteSize
-      newYPos = this.props.parentNote.ypos
-    }
-
-    const note = {
-      xpos: newXPos,
-      ypos: newYPos,
-      createdAt: createdAt.getTime(),
-    }
-
-    this.pressButton();
-    return this.props.addNewNote(note)
+    this.props.addNewNote(this.props.reference)
+    console.log(this.props.reference)
   }
   pressButton = () => {
   !this.state.isPressed ? this.setState({isPressed: true}) : this.setState({isPressed: false})
