@@ -24,7 +24,7 @@ export const setGridMap = (gridMap) =>{
 const initialState = {
   grid: {},
   gridMap: [],
-  notesList: [], //deprecated
+  notesList: [],
   totalNotes: 0,
   noteSize: 100
 }
@@ -48,7 +48,10 @@ const notes = (state = initialState, action) => {
       return {
         ...state,
         totalNotes: state.totalNotes + 1,
-        gridMap: [...state.gridMap, squareId.button = false, squareId.note = true]
+        notesList: [...state.notesList, Object.assign({}, squareId, {
+          note: true,
+          button: false
+        })]
       }
     default:
       return state

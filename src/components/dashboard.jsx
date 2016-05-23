@@ -140,10 +140,10 @@ class Dashboard extends Component {
       return Math.floor((Math.random() * 4) + 1);
     }
 
-    const square = (newGrid = this.props.gridMap) => {
-      console.log('this is being mapped:', newGrid)
+    const notesList = (notesList = this.props.gridMap) => {
+      console.log('this is being mapped:', notesList)
 
-      return newGrid.map((family, key) => {
+      return notesList.map((family, key) => {
         const fam = flattenObject(family);
         if (fam.note) {
           return (
@@ -164,14 +164,14 @@ class Dashboard extends Component {
               xpos={fam.xpos}
               ypos={fam.ypos}
               addNewNote={this.props.addNewNote}
-              globalGrid={newGrid}
+              globalGrid={notesList}
               />
           )
         }
       })
     }
 
-    // console.log('notesList', this.props.notesList)
+    console.log('notesList', this.props.notesList)
     // console.log('totalNotes', this.props.totalNotes)
     // console.log('grid', this.props.grid)
     // console.log('totalNotes', this.props.addNewNote)
@@ -180,15 +180,7 @@ class Dashboard extends Component {
     return (
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
-          {/*<NoteContainer
-            key={1}
-            noteSize={this.props.noteSize}
-            xpos={xpos[xposCenter]}
-            ypos={ypos[yposCenter]}
-            addNewNote={this.props.addNewNote}
-            totalNotes={this.props.totalNotes}
-            />*/}
-          {square()}
+          {notesList()}
           {xGridLines}
           {yGridLines}
         </div>
