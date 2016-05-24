@@ -93,6 +93,35 @@ class Dashboard extends Component {
     // console.log('singleGridObject', totalGridObjects[30])
     // console.log('originalGrid:', initialGrid)
     this.props.setGridMap(totalGridObjects)
+    setTimeout(() => {
+      this.createFirstNote();
+      this.setButtons();
+    }, 100)
+  }
+  createFirstNote = () => {
+    const middlePosition = Math.floor(this.props.gridMap.length / 2);
+    this.props.addNewNote(middlePosition - 1)
+  }
+  setButtons = () => {
+    const notesList = this.props.notesList;
+    const gridMap = this.props.gridMap;
+    let notesIds = [];
+
+    for(let i = 0; i < notesList.length; i++) {
+      notesIds = [...notesIds, notesList[i].id]
+    }
+
+    const middle = gridMap.filter((grid) => {
+      return grid.square.id === 34
+    })
+
+    const left = gridMap.filter((grid) => {
+      return grid.square.id === 34 - 1
+    })
+
+    console.log(middle, left)
+
+    console.log(notesIds)
   }
   render() {
     const styles = {
@@ -140,8 +169,8 @@ class Dashboard extends Component {
       return Math.floor((Math.random() * 4) + 1);
     }
 
-    const notesList = (notesList = this.props.gridMap) => {
-      console.log('this is being mapped:', notesList)
+    const notesList = (notesList = this.props.notesList) => {
+      // console.log('this is being mapped:', notesList)
 
       return notesList.map((family, key) => {
         const fam = flattenObject(family);
