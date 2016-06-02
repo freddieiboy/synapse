@@ -5,7 +5,7 @@ import AddNoteButton from './AddNoteButton.jsx';
 import GridCell from './GridCell.jsx';
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { addNewNote, initializeGrid, setGridMap } from '../store/notes.js';
+import { addNewNote, initializeGrid, setGridMap, addButtons } from '../store/notes.js';
 import { flattenObject } from './utils.js';
 
 class Dashboard extends Component {
@@ -93,10 +93,10 @@ class Dashboard extends Component {
     // console.log('singleGridObject', totalGridObjects[30])
     // console.log('originalGrid:', initialGrid)
     this.props.setGridMap(totalGridObjects)
-    setTimeout(() => {
+    // setTimeout(() => {
       this.createFirstNote();
-      this.setButtons();
-    }, 100)
+      // this.setButtons();
+    // }, 100)
   }
   createFirstNote = () => {
     const middlePosition = Math.floor(this.props.gridMap.length / 2);
@@ -119,7 +119,14 @@ class Dashboard extends Component {
       return grid.square.id === 34 - 1
     })
 
-    console.log(middle, left)
+    const right = gridMap.filter((grid) => {
+      return grid.square.id === 34 + 1
+    })
+
+    this.props.addButtons(flattenObject(right).id)
+    this.props.addButtons(flattenObject(left).id)
+
+    console.log('middle left right', middle, left, flattenObject(right).id)
 
     console.log(notesIds)
   }
@@ -170,8 +177,6 @@ class Dashboard extends Component {
     }
 
     const notesList = (notesList = this.props.notesList) => {
-      // console.log('this is being mapped:', notesList)
-
       return notesList.map((family, key) => {
         const fam = flattenObject(family);
         if (fam.note) {
@@ -184,7 +189,15 @@ class Dashboard extends Component {
               ypos={fam.ypos}
               />
           )
-        } else if (fam.button) {
+        }
+      })
+    }
+
+    console.log(this.props.buttonsList)
+    const buttonsList = (buttonsList = this.props.buttonsList) => {
+      return buttonsList.map((family, key) => {
+        const fam = flattenObject(family);
+        if (fam.button) {
           return (
             <AddNoteButton
               key={fam.id}
@@ -201,6 +214,7 @@ class Dashboard extends Component {
     }
 
     console.log('notesList', this.props.notesList)
+    console.log('buttonsList', this.props.buttonsList)
     // console.log('totalNotes', this.props.totalNotes)
     // console.log('grid', this.props.grid)
     // console.log('totalNotes', this.props.addNewNote)
@@ -210,6 +224,7 @@ class Dashboard extends Component {
       <div className="Dashboard grid g-horizontal" style={styles.Dashboard}>
         <div className="g-cell g-cell-1">
           {notesList()}
+          {buttonsList()}
           {xGridLines}
           {yGridLines}
         </div>
@@ -228,6 +243,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     notesList: state.notesList,
+    buttonsList: state.buttonsList,
     totalNotes: state.totalNotes,
     noteSize: state.noteSize,
     grid: state.grid,
@@ -245,7 +261,10 @@ const MapDispatchToProps = (dispatch) => {
     },
     setGridMap: (gridMap) => {
       dispatch(setGridMap(gridMap))
-    }
+    },
+    addButtons: (id) => {
+      dispatch(addButtons(id))
+    },
   }
 }
 

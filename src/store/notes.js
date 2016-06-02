@@ -13,10 +13,17 @@ export const addNewNote = (id) => {
   }
 }
 
-export const setGridMap = (gridMap) =>{
+export const setGridMap = (gridMap) => {
   return {
     type: 'SET_GRID_MAP',
     gridMap
+  }
+}
+
+export const addButtons = (id) => {
+  return {
+    type: 'ADD_BUTTONS',
+    id
   }
 }
 
@@ -25,6 +32,7 @@ const initialState = {
   grid: {},
   gridMap: [],
   notesList: [],
+  buttonsList: [],
   totalNotes: 0,
   noteSize: 100
 }
@@ -51,6 +59,15 @@ const notes = (state = initialState, action) => {
         notesList: [...state.notesList, Object.assign({}, squareId, {
           note: true,
           button: false
+        })]
+      }
+    case 'ADD_BUTTONS':
+      const refId = state.gridMap[action.id].square;
+      return {
+        ...state,
+        buttonsList: [...state.buttonsList, Object.assign({}, refId, {
+          note: false,
+          button: true
         })]
       }
     default:
